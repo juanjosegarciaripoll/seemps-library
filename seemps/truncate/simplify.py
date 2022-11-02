@@ -125,6 +125,8 @@ def simplify(
 
     base_error = ψ.error()
     φ = state.CanonicalMPS(ψ, center=start, tolerance=tolerance, normalize=normalize)
+    φ.maxsweeps = maxsweeps
+    φ.max_bond_dimension = max_bond_dimension
     if max_bond_dimension == 0 and tolerance <= 0:
         return φ
 
