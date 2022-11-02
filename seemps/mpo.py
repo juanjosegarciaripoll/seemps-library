@@ -211,6 +211,8 @@ class MPO(TensorArray):
             simplify=self.simplify,
             tolerance=self.tolerance,
             normalize=self.normalize,
+            maxsweeps=self.maxsweeps,
+            max_bond_dimension=self.max_bond_dimension,
         )
 
 
@@ -386,6 +388,8 @@ class MPOList(object):
             simplify=self.simplify,
             tolerance=self.tolerance,
             normalize=self.normalize,
+            maxsweeps=self.maxsweeps,
+            max_bond_dimension=self.max_bond_dimension,
         )
 
 
@@ -582,4 +586,6 @@ class MPOSum(object):
             simplify=self.simplify,
             tolerance=self.tolerance,
             normalize=self.normalize,
+            maxsweeps=self.maxsweeps,
+            max_bond_dimension=self.max_bond_dimension,
         )
