@@ -22,11 +22,11 @@ def guess_combine_state(weights, states):
     weighted_states = []
     for i, psi in enumerate(states):
         weighted_states.append(weights[i] * psi)
-    for site in range(states[0].size):
+    for site in range(weighted_states[0].size):
         DL_max = 0
         DR_max = 0
         z = 0
-        for state in states:
+        for state in weighted_states:
             z += state[site][0, 0, 0]
             DL, i, DR = state[site].shape
             if DL > DL_max:
@@ -82,11 +82,13 @@ def combine(
     )
     start = 0 if direction > 0 else guess.size - 1
     φ = CanonicalMPS(guess, center=start, tolerance=tolerance)
+    φ.maxsweeps = maxsweeps
+    φ.max_bond_dimension = max_bond_dimension
     err = norm_ψsqr = multi_norm_squared(weights, states)
     if norm_ψsqr < tolerance:
         return MPS([np.zeros((1, P.shape[1], 1)) for P in φ]), 0
     log(
-        f"COMBINE ψ with |ψ|={norm_ψsqr**0.5} for {maxsweeps} sweeps.\nWeights: {weights}"
+        f"COMBINE ψ with |ψ|={norm_ψsqr**0.5} for {maxsweeps} sweeps with tolerance = {tolerance}.\nWeights: {weights}"
     )
 
     size = φ.size
