@@ -84,7 +84,7 @@ def combine(
     φ = CanonicalMPS(guess, center=start, tolerance=tolerance)
     φ.maxsweeps = maxsweeps
     φ.max_bond_dimension = max_bond_dimension
-    err = norm_ψsqr = multi_norm_squared(weights, states)
+    norm_ψsqr = multi_norm_squared(weights, states)
     if norm_ψsqr < tolerance:
         return MPS([np.zeros((1, P.shape[1], 1)) for P in φ]), 0
     log(
@@ -126,10 +126,10 @@ def combine(
             norm_φsqr = 1.0
         C = sum(α * f.tensor1site() for α, f in zip(weights, forms))
         scprod_φψ = np.vdot(B, C)
-        old_err = err
+        
         err = 2 * abs(1.0 - scprod_φψ.real / np.sqrt(norm_φsqr * norm_ψsqr))
-        log(f"sweep={sweep}, rel.err.={err}, old err.={old_err}, |φ|={norm_φsqr**0.5}")
-        if err < tolerance or err > old_err:
+        log(f"sweep={sweep}, rel.err.={err}, |φ|={norm_φsqr**0.5}")
+        if err < tolerance:
             log("Stopping, as tolerance reached")
             break
         direction = -direction
