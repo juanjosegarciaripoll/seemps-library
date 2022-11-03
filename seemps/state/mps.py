@@ -453,7 +453,7 @@ class MPSSum:
             self.weights,
             self.states,
             maxsweeps=self.maxsweeps,
-            tolerance=self.tolerance,
+            tolerance=tolerance,
             normalize=normalize,
             max_bond_dimension=self.max_bond_dimension,
         )
